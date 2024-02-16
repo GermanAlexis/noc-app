@@ -11,6 +11,10 @@ function main() {
 
   cronService.createJob("*/5 * * * * *", () => {
     const url = "https://www.google.com";
-    new CheckService().execute(url);
+
+    new CheckService(
+      () => console.log(`${url} is ok`),
+      (error) => console.log(error)
+    ).execute(url);
   });
 }
