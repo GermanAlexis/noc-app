@@ -4,10 +4,10 @@ import { LogDataSource } from "../../domain/datasources/log.datasource";
 import { LogEntity, LogSeverity } from "../../domain/entities/LogEntity";
 
 export class FileSystemDataSource implements LogDataSource {
-  private readonly path: string = "log/";
-  private readonly lowPath: string = "log/logs-low.log";
-  private readonly mediumPath: string = "log/logs-medium.log";
-  private readonly highPath: string = "log/-logs-high.log";
+  private readonly path: string = "logs/";
+  private readonly lowPath: string = "logs/logs-low.log";
+  private readonly mediumPath: string = "logs/logs-medium.log";
+  private readonly highPath: string = "logs/logs-high.log";
 
   constructor() {
     this.createFiles();
@@ -16,7 +16,7 @@ export class FileSystemDataSource implements LogDataSource {
   async saveLog(newLog: LogEntity): Promise<void> {
     const logAsJson = `${JSON.stringify(newLog)}\n`;
 
-    fs.appendFileSync(this.path, logAsJson);
+    fs.appendFileSync(this.lowPath, logAsJson);
 
     if (newLog.level === LogSeverity.low) return;
     if (newLog.level === LogSeverity.medium) {
